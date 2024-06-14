@@ -78,10 +78,48 @@ export default function Home() {
   };
   return (
     <main
-      className={`grid sm:grid-cols-1 lg:grid-cols-2 min-h-screen items-center ${inter.className}`}
+      className={`grid grid-cols-1 md:grid-cols-2 min-h-screen items-center ${inter.className}`}
     >
-      <div className="px-[25px] py-[50px] md:px-[100px] md:py-[160px] h-[50vh] md:h-[100vh] bg-white shadow -ml-1 flex justify-center">
-        <div className="w-full h-[280px] p-4 md:p-8 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+      <div className="bg-gray-50 h-[100vh] relative order-2 md:-order-2">
+        <div className="flex flex-col px-[25px] py-[50px] md:px-[100px] md:py-[120px]">
+          <div>
+            <Image width={100} height={50} src={srcIcon} alt="Eclo Logo" />
+            <p className="text-sm mt-5">
+              Adventuner Membership (Yearly) at YummyMath
+            </p>
+            <p className="text-4xl uppercase py-1 font-semibold">25,00 US$</p>
+            <p className="text-sm py-1">
+              Access to activites in editable format (Word, Excel, etc.) to
+              customzie. Solution and supporting materials for all activities.
+              Access to all materials published before January 1st, 2024.
+            </p>
+          </div>
+          <div className="mt-40 flex">
+            <span className="border-r-2 px-2 text-xs text-gray-500">
+              Được cung cấp bới{" "}
+              <span className="uppercase text-black">Eclo</span>
+            </span>
+            <span className="border-r-2 px-2 text-xs text-gray-500">
+              Điều khoản
+            </span>
+            <span className="px-2 text-xs text-gray-500">Quyền riêng tư</span>
+          </div>
+        </div>
+        <div className="fixed top-0 right-0">
+          <ConnectButton
+            wallets={wallets}
+            theme={"light"}
+            client={client}
+            connectModal={{
+              size: "compact",
+              titleIcon: "",
+              welcomeScreen: { title: "r" },
+            }}
+          />
+        </div>
+      </div>
+      <div className="px-[25px] py-[50px] md:px-[100px] md:py-[160px] h-[800px] md:h-[100vh] bg-white shadow -ml-1 flex justify-center order-1 md:-order-1">
+        <div className="h-[280px] p-4 md:p-8 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
           <div className="w-full flex justify-between mb-[20px]">
             <Image width={80} height={40} src={srcIcon} alt="Eclo Logo" />
             <IoIosMore className="cursor-pointer" />
@@ -123,45 +161,6 @@ export default function Home() {
               />
             </svg>
           </button>
-        </div>
-        
-      </div>
-      <div className="bg-gray-50 h-[100vh] relative">
-        <div className="flex flex-col px-[25px] py-[50px] md:px-[100px] md:py-[120px]">
-          <div>
-            <Image width={100} height={50} src={srcIcon} alt="Eclo Logo" />
-            <p className="text-sm mt-5">
-              Adventuner Membership (Yearly) at YummyMath
-            </p>
-            <p className="text-4xl uppercase py-1 font-semibold">25,00 US$</p>
-            <p className="text-sm py-1">
-              Access to activites in editable format (Word, Excel, etc.) to
-              customzie. Solution and supporting materials for all activities.
-              Access to all materials published before January 1st, 2024.
-            </p>
-          </div>
-          <div className="mt-40 flex">
-            <span className="border-r-2 px-2 text-xs text-gray-500">
-              Được cung cấp bới{" "}
-              <span className="uppercase text-black">Eclo</span>
-            </span>
-            <span className="border-r-2 px-2 text-xs text-gray-500">
-              Điều khoản
-            </span>
-            <span className="px-2 text-xs text-gray-500">Quyền riêng tư</span>
-          </div>
-        </div>
-        <div className="fixed top-0 right-0">
-          <ConnectButton
-            wallets={wallets}
-            theme={"light"}
-            client={client}
-            connectModal={{
-              size: "compact",
-              titleIcon: "",
-              welcomeScreen: { title: "r" },
-            }}
-          />
         </div>
       </div>
       <ToastContainer />
