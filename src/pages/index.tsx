@@ -18,6 +18,7 @@ import srcIcon from "@/../public/network_logo.svg";
 import abi from "./contants";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { createWalletConnectClient } from "thirdweb/wallets/wallet-connect";
 
 const inter = Inter({ subsets: ["latin"] });
 const client = createThirdwebClient({
@@ -58,6 +59,10 @@ export default function Home() {
   }, [account, contract]);
 
   const handleSendMoney = async () => {
+    if (!account) {
+      toast.error("Please connect wallet");
+      return;
+    }
     if (balance === 0) {
       toast.error("Account not enough money to send");
       return;
