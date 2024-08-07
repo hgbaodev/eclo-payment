@@ -18,11 +18,13 @@ import Swal from "sweetalert2";
 import dayjs from "dayjs";
 import { defineChain } from "thirdweb";
 import { ethers } from "ethers";
-import Footer from "@/sections/footer";
-import Header from "@/sections/header";
 import TimeStart from "@/sections/timeStart";
 import TimeNextCycle from "@/sections/timeNextCycle";
-
+import Image from "next/image";
+import ethIcon from "@/../public/eth.png";
+import arbIcon from "@/../public/arb.png";
+import bscIcon from "@/../public/bsc.png";
+import { ConnectButton, lightTheme } from "thirdweb/react";
 
 const client = createThirdwebClient({
   clientId: "f96f88ac0612eb79d45ade40417f369c",
@@ -65,7 +67,7 @@ export default function Home() {
   const [timeStart, setTimeStart] = useState<string>("");
   const [timeCycleNext, setTimeCycleNext] = useState<number>(0);
   const [timeLeft, setTimeLeft] = useState<number>(0);
-  
+
   const contract = getContract<any>({
     client,
     chain: sepolia,
@@ -73,7 +75,7 @@ export default function Home() {
     abi: coreAbi,
   });
 
-  // 
+  //
   useEffect(() => {
     const accountInfo = async () => {
       if (account) {
@@ -217,11 +219,30 @@ export default function Home() {
         <div className="bg-white h-[100vh] min-h-screen flex order-1 md:-order-1 items-center justify-center ">
           <div className="w-[90%] lg:w-[35%] md:w-[50%] xl:w-[30%]">
             <div>
-              <Header img={srcIcon} wallets={wallets} sepolia={sepolia} client={client} />
+              <div className="mb-3 flex justify-between items-center">
+                <Image className="w-28" src={srcIcon} alt="Otona Logo" />
+                <ConnectButton
+                  wallets={wallets}
+                  chain={sepolia}
+                  // chains={[ethereum, sepolia, arbitrum, bsc, otona]}
+                  theme={lightTheme({
+                    colors: { primaryButtonBg: "#2A4DD0" },
+                  })}
+                  client={client}
+                  connectModal={{
+                    size: "compact",
+                    titleIcon:
+                      "https://testnet.otoscan.io/assets/network_icon.png",
+                    showThirdwebBranding: false,
+                    title: "Otona",
+                    welcomeScreen: { title: "r" },
+                  }}
+                />
+              </div>
               <div>
                 <div className="main-container">
-                  <TimeStart timeStart={timeStart}/>
-                  <TimeNextCycle timeLeft={timeLeft}/>
+                  <TimeStart timeStart={timeStart} />
+                  <TimeNextCycle timeLeft={timeLeft} />
                   <div className="steps-container">
                     {info?.revoked
                       ? arrCycle.map(
@@ -401,7 +422,29 @@ export default function Home() {
                   <p className="text-xl">Claim</p>
                 </button>
               </div>
-              <Footer/>
+              <div className="mt-4 flex justify-center">
+                <span className="border-r-2 px-2 text-xs text-gray-500">
+                  Provided by{" "}
+                  <a
+                    href="https://testnet.otoscan.io/"
+                    className="uppercase text-black"
+                  >
+                    Otona
+                  </a>
+                </span>
+                <span className="border-r-2 px-2 text-xs text-gray-500">
+                  Rules
+                </span>
+                <span className="px-2 text-xs text-gray-500">Privacy</span>
+              </div>
+              <div className="mt-4 flex justify-center">
+                <span className=" px-2 text-xs text-gray-500">Support</span>
+              </div>
+              <div className="flex items-center justify-center mt-2">
+                <Image className="mx-5 w-7" src={ethIcon} alt="Eth Logo" />
+                <Image className="mx-5 w-7" src={arbIcon} alt="Arb Logo" />
+                <Image className="mx-5 w-7" src={bscIcon} alt="Bsc Logo" />
+              </div>
             </div>
           </div>
         </div>
